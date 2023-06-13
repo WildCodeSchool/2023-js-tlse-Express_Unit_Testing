@@ -4,7 +4,7 @@ const db = connexion.promise();
 const getAll = (req, res) => {
 
   db.query("SELECT * FROM albums")
-    .then((result) => {
+    .then(([result]) => {
       res.status(200).json(result);
     })
     .catch((err) => { 
@@ -17,8 +17,9 @@ const getAll = (req, res) => {
 const getOne = (req, res) => {
   const id = parseInt(req.params.id);
   db.query("SELECT * FROM albums WHERE id = ?", [id])
-  .then((result) => {
+  .then(([result]) => {
     res.status(200).json(result);
+
   })
   .catch((err) => { 
     console.error(err);
@@ -29,7 +30,7 @@ const getOne = (req, res) => {
 const getTracksByAlbumId = (req, res) => {
   const id = parseInt(req.params.id);
   db.query("SELECT * FROM track WHERE id_album = ?", [id])
-  .then((result) => {
+  .then(([result]) => {
     res.status(200).json(result);
   })
   .catch((err) => { 

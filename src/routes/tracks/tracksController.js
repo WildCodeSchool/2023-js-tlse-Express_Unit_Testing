@@ -4,7 +4,7 @@ const db = connexion.promise();
 const getOne = (req, res) => {
   const id = parseInt(req.params.id);
   db.query("SELECT * FROM track WHERE id = ?", [id])
-  .then((result) => {
+  .then(([result]) => {
     res.status(200).json(result);
   })
   .catch((err) => { 
@@ -15,7 +15,7 @@ const getOne = (req, res) => {
 
 const getAll = (req, res) => {
   db.query("SELECT * FROM track")
-  .then((result) => {
+  .then(([result]) => {
   res.status(200).json(result);
 })
 .catch((err) => { 
