@@ -23,7 +23,7 @@ const getAll = (req, res) => {
     if (tracks.length > 0) {
       res.status(200).json(tracks);
     } else {
-      res.status(404).send('No tracks found');
+      res.status(404).send('No track found');
     }
   });
 };
@@ -34,14 +34,12 @@ const postTracks = (req, res) => {
   db.query(
     'INSERT INTO track (title, youtube_url, id_album) VALUES (?, ?, ?)',
     [title, youtube_url, id_album]
-  )
-    .then(([result]) => {
-      res.location('/api/tracks/' + result.insertId).sendStatus(201);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error adding track to database');
-    });
+  ).then(([result]) => {
+    res
+      .location('/api/tracks/' + result.insertId)
+      .status(201)
+      .json({ id: result.insertId, ...req.body });
+  });
 };
 
 const updateTracks = (req, res) => {
@@ -51,35 +49,25 @@ const updateTracks = (req, res) => {
   db.query(
     'UPDATE track SET title = ?, youtube_url = ?, id_album = ? WHERE id = ?',
     [title, youtube_url, id_album, id]
-  )
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.status(404).send('Track not found');
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error updating track in database');
-    });
+  ).then(([result]) => {
+    if (result.affectedRows === 0) {
+      res.status(404).send('Track not found');
+    } else {
+      res.sendStatus(204);
+    }
+  });
 };
 
 const deleteTracks = (req, res) => {
   const id = parseInt(req.params.id);
 
-  db.query('DELETE FROM track WHERE id = ?', [id])
-    .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.status(404).send('Track not found');
-      } else {
-        res.sendStatus(204);
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error deleting track from database');
-    });
+  db.query('DELETE FROM track WHERE id = ?', [id]).then(([result]) => {
+    if (result.affectedRows === 0) {
+      res.status(404).send('Track not found');
+    } else {
+      res.sendStatus(204);
+    }
+  });
 };
 
 module.exports = { getOne, getAll, postTracks, updateTracks, deleteTracks };
