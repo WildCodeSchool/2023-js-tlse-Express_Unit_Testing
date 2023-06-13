@@ -1,94 +1,113 @@
-const connexion = require('../../../db-config');
-const db = connexion.promise();
+const models = require('../models');
 
 const getAll = (req, res) => {
-  db.query('select * from albums')
-    .then(([albums]) => {
-      res.json(albums);
+  models.albums
+    .findAll()
+    .then(([result]) => {
+      if (result.length) {
+        res.status(200).json(result);
+      } else {
+        res.sendStatus(404);
+      }
     })
-    .catch((err) => {
-      console.error(err);
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
 const getOne = (req, res) => {
-  const id = parseInt(req.params.id);
-  db.query(`select * from albums where id = ?`, [id])
-    .then(([albums]) => {
-      const album = albums.find((album) => album.id === id);
-      if (album != null) {
-        res.json(album);
+  const { id } = req.params;
+
+  models.albums
+    .find(id)
+    .then(([result]) => {
+      if (result[0]) {
+        res.status(200).json(result[0]);
       } else {
-        res.status(404).send('Not Found');
+        res.sendStatus(404);
       }
     })
-    .catch((err) => {
-      console.error(err);
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
 const getTracksByAlbumId = (req, res) => {
-  const id = parseInt(req.params.id);
-  db.query('select * from track where id_album = ?', [id])
-    .then(([tracks]) => {
-      res.json(tracks);
+  const { id } = req.params;
+  models.track
+    .findLink(id)
+    .then(([result]) => {
+      if (result.length) {
+        res.status(200).json(result);
+      } else {
+        res.sendStatus(404);
+      }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Erreur lors de la récupération ');
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
-
 };
 
 const postAlbums = (req, res) => {
   const { title, genre, picture, artist } = req.body;
-  db.query(
-    'INSERT INTO albums(title, genre, picture, artist) VALUES (?, ?, ?, ?)',
-    [title, genre, picture, artist]
-  )
+  models.albums
+    .insert({ title, genre, picture, artist })
     .then(([result]) => {
-      res.location(`/api/albums/${result.insertId}`).sendStatus(201);
+      if (result.affectedRows) {
+        res.status(201).json({
+          title: title,
+          genre: genre,
+          picture: picture,
+          artist: artist,
+          id: result.insertId,
+        });
+      } else {
+        res.sendStatus(400);
+      }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error saving the albums');
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
 const updateAlbums = (req, res) => {
-  const id = parseInt(req.params.id);
   const { title, genre, picture, artist } = req.body;
+  const { id } = req.params;
 
-  db.query(
-    'update albums set title = ?, genre = ?,picture = ?, artist = ? where id = ?',
-    [title, genre, picture, artist, id]
-  )
+  models.albums
+    .update({ title, genre, picture, artist, id })
     .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.status(404).send('Not Found');
-      } else {
+      if (result.affectedRows) {
         res.sendStatus(204);
+      } else {
+        res.sendStatus(404);
       }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error editing the albums');
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
 const deleteAlbums = (req, res) => {
-  const id = parseInt(req.params.id);
-  db.query('delete from albums where id = ?', [id])
+  const { id } = req.params;
+
+  models.albums
+    .delete(id)
     .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.status(404).send('Not Found');
-      } else {
+      if (result.affectedRows) {
         res.sendStatus(204);
+      } else {
+        res.sendStatus(404);
       }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error deleting the albums');
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 

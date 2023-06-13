@@ -1,82 +1,96 @@
-const connexion = require('../../../db-config');
-const db = connexion.promise();
+const models = require('../models');
 
 const getOne = (req, res) => {
-  const id = parseInt(req.params.id);
-  db.query(`select * from track where id = ?`, [id])
-    .then(([track]) => {
-      const tracks = track.find((tracks) => tracks.id === id);
-      if (tracks != null) {
-        res.json(track);
+  const { id } = req.params;
+
+  models.track
+    .find(id)
+    .then(([result]) => {
+      if (result[0]) {
+        res.status(200).json(result[0]);
       } else {
-        res.status(404).send('Not Found');
+        res.sendStatus(404);
       }
     })
-    .catch((err) => {
-      console.error(err);
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
 const getAll = (req, res) => {
-  db.query('select * from track')
-    .then(([track]) => {
-      res.json(track);
+  models.track
+    .findAll()
+    .then(([result]) => {
+      if (result.length) {
+        res.status(200).json(result);
+      } else {
+        res.sendStatus(404);
+      }
     })
-    .catch((err) => {
-      console.error(err);
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
 const postTracks = (req, res) => {
   const { title, youtube_url, id_album } = req.body;
-  db.query('INSERT INTO track(title, youtube_url, id_album) VALUES (?, ?, ?)', [
-    title,
-    youtube_url,
-    id_album,
-  ])
+
+  models.track
+    .insert({ title, youtube_url, id_album })
     .then(([result]) => {
-      res.location(`/api/tracks/${result.insertId}`).sendStatus(201);
+      if (result.affectedRows) {
+        res.status(201).json({
+          title: title,
+          youtube_url: youtube_url,
+          id_album: id_album,
+          id: result.insertId,
+        });
+      } else {
+        res.sendStatus(400);
+      }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error saving the tracks');
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
 const updateTracks = (req, res) => {
-  const id = parseInt(req.params.id);
   const { title, youtube_url, id_album } = req.body;
+  const { id } = req.params;
 
-  db.query(
-    'update track set title = ?, youtube_url = ?, id_album = ? where id = ?',
-    [title, youtube_url, id_album, id]
-  )
+  models.track
+    .update({ title, youtube_url, id_album, id })
     .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.status(404).send('Not Found');
-      } else {
+      if (result.affectedRows) {
         res.sendStatus(204);
+      } else {
+        res.sendStatus(404);
       }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error editing the tracks');
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
 const deleteTracks = (req, res) => {
-  const id = parseInt(req.params.id);
-  db.query('delete from track where id = ?', [id])
+  const { id } = req.params;
+
+  models.track
+    .delete(id)
     .then(([result]) => {
-      if (result.affectedRows === 0) {
-        res.status(404).send('Not Found');
-      } else {
+      if (result.affectedRows) {
         res.sendStatus(204);
+      } else {
+        res.sendStatus(404);
       }
     })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send('Error deleting the tracks');
+    .catch((error) => {
+      console.error(error);
+      res.sendStatus(500);
     });
 };
 
