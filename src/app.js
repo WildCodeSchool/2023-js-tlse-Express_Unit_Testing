@@ -8,6 +8,8 @@ connection.connect((err) => {
   else console.log('Connected as id ' + connection.threadId);
 });
 
+//ajouter d'un commentaire
+
 const app = express();
 app.use(express.json());
 app.use('/api', routes);
