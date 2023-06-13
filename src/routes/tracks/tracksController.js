@@ -2,23 +2,84 @@ const connexion = require('../../../db-config');
 const db = connexion.promise();
 
 const getOne = (req, res) => {
-  res.status(200).send('Get One route is OK');
+  const id = parseInt(req.params.id);
+
+  db.query('SELECT * from track WHERE id = ?', [id])
+    .then(([tracks]) => {
+      if (tracks[0] != null) {
+        res.status(200).json(tracks[0]);
+      } else {
+        res.status(404).send('Track not found');
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error retrieving data from database');
+    });
 };
 
 const getAll = (req, res) => {
-  res.status(200).send('Get All route is OK');
+  db.query('SELECT * from track').then(([tracks]) => {
+    if (tracks.length > 0) {
+      res.status(200).json(tracks);
+    } else {
+      res.status(404).send('No tracks found');
+    }
+  });
 };
 
 const postTracks = (req, res) => {
-  res.status(200).send('Post route is OK');
+  const { title, youtube_url, id_album } = req.body;
+
+  db.query(
+    'INSERT INTO track (title, youtube_url, id_album) VALUES (?, ?, ?)',
+    [title, youtube_url, id_album]
+  )
+    .then(([result]) => {
+      res.location('/api/tracks/' + result.insertId).sendStatus(201);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error adding track to database');
+    });
 };
 
 const updateTracks = (req, res) => {
-  res.status(200).send('Update route is OK');
+  const id = parseInt(req.params.id);
+  const { title, youtube_url, id_album } = req.body;
+
+  db.query(
+    'UPDATE track SET title = ?, youtube_url = ?, id_album = ? WHERE id = ?',
+    [title, youtube_url, id_album, id]
+  )
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send('Track not found');
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error updating track in database');
+    });
 };
 
 const deleteTracks = (req, res) => {
-  res.status(200).send('Delete route is OK');
+  const id = parseInt(req.params.id);
+
+  db.query('DELETE FROM track WHERE id = ?', [id])
+    .then(([result]) => {
+      if (result.affectedRows === 0) {
+        res.status(404).send('Track not found');
+      } else {
+        res.sendStatus(204);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send('Error deleting track from database');
+    });
 };
 
 module.exports = { getOne, getAll, postTracks, updateTracks, deleteTracks };
