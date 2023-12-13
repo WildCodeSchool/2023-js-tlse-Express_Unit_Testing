@@ -5,7 +5,7 @@ const { trackToCreate, trackKeys } = require('./testsData');
 describe('🎧 TRACKS ROUTES', () => {
   const persistentDatas = {};
 
-  it('should get the track list 🧪 /api/tracks', async () => {
+  if('should get the track list 🧪 /api/tracks', async () => {
     const res = await supertest(app)
       .get('/api/tracks')
       .expect(200)

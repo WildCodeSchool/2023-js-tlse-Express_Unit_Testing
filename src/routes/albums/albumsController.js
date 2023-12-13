@@ -29,7 +29,7 @@ const getOne = (req, res) => {
 
 const getTracksByAlbumId = (req, res) => {
   const { id } = req.params;
-  db.query('SELECT * FROM trackd WHERE id_album=?', [id]).then(([result]) => {
+  db.query('SELECT * FROM track WHERE id_album=?', [id]).then(([result]) => {
     if (result[0]) {
       res.status(200).json(result);
     } else {
