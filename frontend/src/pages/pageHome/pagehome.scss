@@ -1,0 +1,23 @@
+@use "../../styles/fonction";
+@use "../../styles/colors";
+.cell-container{
+    padding-top: 5rem;
+    .cell-line-container{
+        height: 80vh;
+        overflow: scroll;
+    }
+    .cell-line{
+        @extend %func_format-line;
+        &:hover{
+            cursor: pointer;
+            color: var(--blue-400);
+        }
+    }
+    .stamp-line {
+        @extend %func_format-line;
+        border: none;
+        padding-right: 2rem;
+        background-color: var(--blue-300);
+        color: var(--blue-700);
+    }
+}

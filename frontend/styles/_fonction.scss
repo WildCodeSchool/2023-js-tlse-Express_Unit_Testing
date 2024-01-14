@@ -1,0 +1,199 @@
+%func_pageUser{
+    display: flex;
+    flex-direction: column;
+    width: 20rem;
+    height: 60vh;
+    margin-top: 4%;
+    margin-left: 2%;
+    padding: 0.8rem;
+    box-shadow: 0px 4px 8px -2px var(--grey-600);
+    h3{
+        color: var(--blue-700);
+        text-align: center;
+    }
+    section {
+        overflow: hidden;
+        overflow-y: scroll;
+        ul{
+            margin-bottom: 0.2rem;
+            margin-right: 0.2rem;
+            padding-left: 0.2rem;
+            border-radius: 0.4rem;
+            border: 1px solid var(--amber-200);
+            li{
+                display: flex;
+                align-items: center;
+                background-color: var(--white);
+                color: var(--blue-950);
+                padding: 0 0.1rem 0 0.6rem;
+                list-style: none;
+                text-align:left;
+            }
+        }
+    }
+    .admis{
+        color: green;
+    }
+    .noadmis{
+        color: red;
+    }
+}
+
+%func_format-line{
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-left: 0.1rem;
+    padding-right: 1rem;
+    .cell-id{
+        width: 4rem;
+        text-align: right;
+    }
+    .cell-info{
+        width: 8rem;
+        padding-left: 0.5rem;
+        text-align: left;
+    }
+    .cell-label-boolean{
+        width: 3rem;
+        font-size: 0.8rem;
+        text-align:left;
+        
+    }
+    .cell-boolean{
+        width: 3rem;
+        height: 1,2rem;
+        text-align: center;
+        background-color: var(--red-500);
+        color: var(--amber-100);
+    }
+    .cell-boolean-oui{
+        width: 3rem;
+        height: 1,2rem;
+        border: none;
+        text-align: center;
+        background-color: var(--green-500);
+        color: var(--amber-100);
+    }
+    .cell-date{
+        width: 8rem;
+        margin: 0;
+        padding-left: 0.5rem;
+        text-align: left;
+    }
+
+}
+%func_buttonDefault{
+    width: 8rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    align-self: flex-end;
+}
+%func_buttonNewUser{
+    @extend %func_buttonDefault;
+    border: 2px solid var(--blue-600);
+    background-color: var(--blue-600);
+    color: var(--amber-100);
+    padding: 0.2rem;
+    &:hover{
+        background-color: var(--blue-400);
+        border: 2px solid var(--blue-400);
+        color: var(--amber-50);
+        cursor: pointer;
+    }
+}
+%func_buttonDeleteUser{
+    @extend %func_buttonDefault;
+    border: 2px solid var(--red-600);
+    background-color: var(--white);
+    color: var(--red-800);
+    &:hover{
+        background-color: var(--red-200);
+        color: var(--amber-800);
+        cursor: pointer;
+    }
+}
+%func_buttonModifyUser{
+    @extend %func_buttonDefault;
+    border: 2px solid var(--green-600);
+    background-color: var(--white);
+    color: var(--green-800);
+    &:hover{
+        background-color: var(--green-200);
+        color: var(--amber-800);
+        cursor: pointer;
+    }
+}
+%func_adminCheckbox{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 1.2rem;
+        padding-bottom: 0.5rem;
+}
+%func_buttonGroup{
+    margin-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+}
+%func_buttonCancelNewUser{
+    width: 8rem;
+    height: 2rem;
+    border-radius: 0.5rem;
+    border: 2px solid var(--blue-600);
+    color: var(--blue-600);
+    background-color: var(--amber-50);
+    &:hover{
+        border: 2px solid var(--blue-400);
+        background-color: var(--amber-100);
+        color: var(--blue-950);
+        cursor: pointer;
+    }
+}
+%func_buttonCharger{
+    width: 6rem;
+        height: 1.5rem;
+        text-align: center;
+        padding-top: 0.3rem;
+        background-color: var(--blue-600);
+        border-radius: 0.4rem;
+        border: 2px solid var(--blue-700);
+        font-size: 0.7rem;
+        color: var(--amber-50);
+        &:hover{
+            background-color: var(--blue-400);
+            cursor: pointer;
+        }
+        input[type="file"]{
+            display: none;
+        }
+        span{
+            color: var(--amber-50);
+        }
+}
+%func_vignette-container{
+    background-color: var(--white);
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+%func_vignette{
+    align-self: center;
+    height: 160px;
+    width: auto;
+    min-width: 160px;
+    // margin-bottom: 1rem;
+    padding: 0.2rem;
+    border: 1px solid var(--amber-300);
+    border-radius: 0.4rem;
+    background-color: var(--amber-50);
+    .image{
+        height: 160px;
+        width: auto;
+        border-radius: 0.4rem;
+    }
+}
+
+    

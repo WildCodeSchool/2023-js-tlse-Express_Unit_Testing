@@ -1,0 +1,14 @@
+@use "../../styles/fonction";
+@use "../../styles/colors";
+.newUser-container{
+    @extend %func_newUser-container;
+}
+.buttonGroup{
+    @extend %func_buttonGroup;
+}
+.cancelNewUser{
+    @extend %func_buttonCancelNewUser;
+}
+.buttonNewUser{
+    @extend %func_buttonNewUser;
+}

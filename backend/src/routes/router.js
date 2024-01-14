@@ -4,6 +4,7 @@ const base = require('./baseControllers');
 const localite = require('./localiteControllers');
 const regions = require('./regionsControllers');
 const pays = require('./paysControllers');
+const url = require('./urlControllers');
 
 const router = Router();
 
@@ -34,5 +35,11 @@ router.get('/pays/:id', pays.getOnePays);
 router.post('/pays', pays.postPays);
 router.put('/pays/:id', pays.updatePays);
 router.delete('/pays/:id', pays.deletePays);
+
+router.get('/url', url.getAllUrl);
+router.get('/url/:id', url.getOneUrl);
+router.post('/url', url.postUrl);
+router.put('/url/:id', url.updateUrl);
+router.delete('/url/:id', url.deleteUrl);
 
 module.exports = router;

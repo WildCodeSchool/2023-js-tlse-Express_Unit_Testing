@@ -1,0 +1,8 @@
+@use "../../styles/colors";
+@use "../../styles/fonction";
+.pageContainer{
+    @extend %func_pageContainer;
+}
+.buttonNewUser{
+    @extend %func_buttonNewUser;
+}

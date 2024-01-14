@@ -1,0 +1,30 @@
+@use "../../styles/colors";
+.navbarContainer{
+    position: fixed;
+    width: 100vw;
+    height: 2rem;
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(0,0,255,0.2);
+    .navbarMenu{
+        width: max-content;
+        margin-right: 2rem;
+        display: flex;
+        a {
+            width: 8rem;
+            text-align: center;
+            font-size: 1.2rem;
+            border-left: 0.1rem solid var(--white);
+            border-right: 0.1rem solid var(--white);
+            padding-top: 0.2rem;
+            background-color: var(--blue-200);
+            text-decoration: none;
+            background-color: var(--blue-700);
+            color: var(--white);
+            &:hover{
+                background-color: var(--blue-300);
+                transform: scale(1.02);
+            }
+        }
+    }
+}

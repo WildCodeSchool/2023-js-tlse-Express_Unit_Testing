@@ -1,16 +1,26 @@
 {
     "cSpell.words": [
         "annee",
+        "camelcase",
+        "commenturl",
         "connexion",
         "destructuré",
+        "firstname",
         "idbase",
         "idlocalite",
         "idpays",
         "idregion",
         "idregions",
+        "idurl",
+        "lastname",
         "nomlocalite",
         "nompays",
         "nomregion",
-        "traks"
+        "nomurl",
+        "pagehome",
+        "Reservé",
+        "traks",
+        "urltable",
+        "Utilis"
     ]
 }
