@@ -161,6 +161,29 @@ const deleteBase = (req, res) => {
     })
     .catch(res.status(500));
 };
+const getCountBase = (req, res) => {
+  db.query('SELECT COUNT(*) FROM base')
+    .then(([result]) => {
+      if (result.length) {
+        res.status(200).json(result);
+      } else {
+        res.status(404);
+      }
+    })
+    .catch(res.status(500));
+};
+const getDatesBase = (req, res) => {
+  const { dateStart, dateEnd } = req.body;
+  db.query(`SELECT * FROM base WHERE annee BETWEEN ${dateStart} AND ${dateEnd}`)
+    .then(([result]) => {
+      if (result.length) {
+        res.status(200).json(result);
+      } else {
+        res.status(404);
+      }
+    })
+    .catch(res.status(500));
+};
 
 module.exports = {
   getAll,
@@ -170,4 +193,6 @@ module.exports = {
   postBase,
   updateBase,
   deleteBase,
+  getCountBase,
+  getDatesBase,
 };

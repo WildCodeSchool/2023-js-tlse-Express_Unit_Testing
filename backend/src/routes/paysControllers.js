@@ -69,6 +69,17 @@ const deletePays = (req, res) => {
     })
     .catch(res.status(500));
 };
+const getCountPays = (req, res) => {
+  db.query('SELECT COUNT(*) FROM pays')
+    .then(([result]) => {
+      if (result.length) {
+        res.status(200).json(result);
+      } else {
+        res.status(404);
+      }
+    })
+    .catch(res.status(500));
+};
 
 module.exports = {
   getOnePays,
@@ -76,4 +87,5 @@ module.exports = {
   postPays,
   updatePays,
   deletePays,
+  getCountPays,
 };

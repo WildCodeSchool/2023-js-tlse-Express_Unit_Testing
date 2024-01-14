@@ -14,6 +14,8 @@ router.get('/base-total/:id', base.getTotalById);
 router.post('/base', base.postBase);
 router.put('/base/:id', base.updateBase);
 router.delete('/base/:id', base.deleteBase);
+router.get('/base-count', base.getCountBase);
+router.get('/base-dates', base.getDatesBase);
 
 router.get('/localite', localite.getAllLocalite);
 router.get('/localite/:id', localite.getOneLocalite);
@@ -22,17 +24,20 @@ router.get('/localite-total/:id', localite.getTotalLocaliteById);
 router.post('/localite', localite.postLocalite);
 router.put('/localite/:id', localite.updateLocalite);
 router.delete('/localite/:id', localite.deleteLocalite);
+router.get('/localite-count', localite.getCountLocalite);
 
 router.get('/regions', regions.getAllRegion);
 router.get('/regions/:id', regions.getOneRegion);
 router.post('/regions', regions.postRegion);
 router.put('/regions/:id', regions.updateRegion);
 router.delete('/regions/:id', regions.deleteRegion);
+router.get('/regions-count', regions.getCountRegions);
 
 router.get('/pays', pays.getAllPays);
 router.get('/pays/:id', pays.getOnePays);
 router.post('/pays', pays.postPays);
 router.put('/pays/:id', pays.updatePays);
 router.delete('/pays/:id', pays.deletePays);
+router.get('/pays-count', pays.getCountPays);
 
 module.exports = router;

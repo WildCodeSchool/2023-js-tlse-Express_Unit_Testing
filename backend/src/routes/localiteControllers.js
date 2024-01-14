@@ -102,6 +102,17 @@ const deleteLocalite = (req, res) => {
     })
     .catch(res.status(500));
 };
+const getCountLocalite = (req, res) => {
+  db.query('SELECT COUNT(*) FROM localite')
+    .then(([result]) => {
+      if (result.length) {
+        res.status(200).json(result);
+      } else {
+        res.status(404);
+      }
+    })
+    .catch(res.status(500));
+};
 
 module.exports = {
   getOneLocalite,
@@ -111,4 +122,5 @@ module.exports = {
   postLocalite,
   updateLocalite,
   deleteLocalite,
+  getCountLocalite,
 };
