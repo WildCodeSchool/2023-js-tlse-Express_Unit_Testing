@@ -1,13 +1,153 @@
-// %func_buttonDefault
-// %func_buttonNewUser
-// %func_buttonDeleteUser
-// %func_buttonModifyUser
-// %func_adminCheckbox
-// %func_buttonGroup
-// %func_buttonCancelNewUser
-// %func_buttonCharger
-// %func_vignette-container input span
-// %func_vignette .image
-* {
-    background-color: bisque;
+.carte-container{
+    .carte-form{
+        border: 1px solid red;
+        width: 820px;
+        height: 468px;
+        .photo-container{
+            width: 300px;
+            height: 235px;
+            .carte-photo{
+                object-fit: cover;
+            }
+        }
+        .modif-descriptif{
+            width: 416px;
+            height: 195px;
+            .modif-button{
+                background: transparent;
+                color: blue;
+                &:hover{
+                    color: aqua;
+                }
+            }
+            .carte-descriptif{
+                width: 416px;
+                height: 178px;
+                .carte-favoris{
+                    .carte-libelle{
+                        label{
+                            color: black;
+                        }
+                        p{
+                            color: brown;
+                        }
+                    }
+                    .icone-coeur{
+                        width: 16px;
+                        height: 16px;
+                    }
+                }
+                .descriptif-liste{
+                    width: 72;
+                    height: 612;
+                    .carte-libelle{
+                        label{
+                            width: 60px;
+                            height: 16px;
+                            color: black;
+                        }
+                        p{
+                            width: 312px;
+                            height: 16px;
+                            color: brown;
+                        }
+                    }
+                }
+                .descriptif-url{
+                    width: 370px;
+                    height: 32px;
+                    .carte-libelle{
+                        label{
+                            color: black;
+                        }
+                        p{
+                            color: brown;
+                        }
+                    }
+                    .button-visitez{
+                        width: 92px;
+                        height: 22px;
+                        background-color: green;
+                        border: 1px solid green;
+                        color: white;
+                        &:hover{
+                            background-color: transparent;
+                            color: green;
+                        }
+                    }
+                }
+            }
+        }
+        .attrib-form{
+            width: 301px;
+            height: 120px;
+            .modif-attrib{
+                width: 218px;
+                height: 16px;
+                .modif-button{
+                    background: transparent;
+                    color: blue;
+                    &:hover{
+                    color: aqua;
+                    }
+                }    
+            }
+            .attrib-liste{
+                width: 284px;
+                height: 90px;
+                .attrib-ligne{
+                    width: 76px;
+                    height: 16px;
+                    }
+                    .on{
+                        border: 1px solid green;
+                        color: green;
+                    }
+                    .off{
+                        border: 1px solid gray;
+                        color: gray;
+                    }
+                }
+            }
+        }
+        .comment-form{
+            width: 415px;
+            height: 176px;
+            .modif-button{
+                width: 219px;
+                height: 16px;
+                background: transparent;
+                color: blue;
+                &:hover{
+                color: aqua;
+                }
+            }
+            .comment-text{
+                color:darkslategrey;
+            }
+        }
+    .buttons{
+        border: 1px solid violet;
+        .button-ajouter-carte{
+            width: 132;
+            height: 32;
+            background-color: green;
+            color: white;
+            border-radius: 8px;
+            &:hover{
+                background-color: darkgreen;
+            }
+        }
+        .button-router-carte{
+            width: 132;
+            height: 32;
+            background-color: transparent
+            color green;
+            border: 1px solid green;
+            border-radius: 8px;
+            &:hover{
+                background-color: darkgreen;
+            }
+        }
+    }
 }
