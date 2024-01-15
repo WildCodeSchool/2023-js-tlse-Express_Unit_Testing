@@ -1,6 +1,7 @@
 // import React from 'react';
 require('dotenv').config();
 const express = require('express');
+const cors = require('cors');
 const connection = require('../db-config');
 const routes = require('./routes/router.js');
 
@@ -13,6 +14,7 @@ connection.connect((err) => {
 });
 
 const app = express();
+app.use(cors());
 app.use(express.json());
 app.use('/api', routes);
 

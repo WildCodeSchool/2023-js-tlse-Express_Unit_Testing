@@ -2,69 +2,83 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import DateFormatCell from "../../components/utils/DateFormatCell";
-import ModaleDescriptionById from "../../components/descriptionById/ModaleDescriptionById";
+import OneCarte from "../../components/oneCarte.jsx/OneCarte";
 import "./pagehome.css";
 function Home() {
-    const [dispositifs, setDispositifs] = useState([]);
-    const [idOneDispositif, setIdOneDispositif] = useState();
-    const [isOneVisible, setIsOneVisible] = useState(false);
-    const getDispositifs = async () =>{
+    const test = 25;
+    const [ cartes, setCartes] = useState([]);
+    const [ id_select, setId_select] = useState();
+    const [ oneCarteVisible, setOneCarteVisible] = useState(false);
+        const getCartes = async () =>{
         try {
-            const response = await axios.get(`http://localhost:5000/dispositifs`);
-            setDispositifs(response.data);
-            dispositifs.sort( function compare(a, b){
-                if (parseInt(a.id_dispositif,10) > parseInt(b.id_dispositif,10))
-                    return -1;
-                if (parseInt(a.id_dispositif,10) < parseInt(b.id_dispositif,10))
-                    return 1;
-                return 0;                  
-            });
+            const response = await axios.get(`http://localhost:5000/api/base-total`);
+            setCartes(response.data);
+            // cartes.sort( function compare(a, b){
+            //     if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
+            //         return -1;
+            //     if (parseInt(a.idbase,10) < parseInt(b.idbase,10))
+            //         return 1;
+            //     return 0;                  
+            // });
         } catch (error) {
             console.error(error);
         }
     }
     useEffect(() =>{
-        getDispositifs();
-    },[])
-    console.log("DISPOSITIFS ",dispositifs);
-    const handleSelectOne = (item) =>{
-        setIdOneDispositif(item);
-        setIsOneVisible(true)
+        getCartes();
+    },[]);
+    const handleClick = (el) => {
+        setId_select(el);
+        setOneCarteVisible(true);
     }
+    
     return(
         <>
         <section className="cell-container">
             <section className="stamp-line">
                 <p className="cell-id">id</p>
-                <p className="cell-info" >Marque</p>
-                <p className="cell-info" >Modèle</p>
-                <p className="cell-info" >Référence</p>
-                <p className="cell-label-boolean">Utilis</p>
-                <p className="cell-label-boolean">Erreur</p>
-                <p className="cell-info" >Reservé par</p>
-                <p className="cell-info" ></p>
-                <p className="cell-date">Date début</p>
-                <p className="cell-date">Date retour</p>
+                <p className="cell-info" >Carte</p>
+                <p className="cell-info" >Année</p>
+                <p className="cell-label-boolean" >Couleur</p>
+                <p className="cell-label-boolean">Ville</p>
+                <p className="cell-label-boolean">Campagne</p>
+                <p className="cell-label-boolean">Mer</p>
+                <p className="cell-label-boolean">Montagne</p>
+                <p className="cell-label-boolean">Personnes</p>
+                <p className="cell-label-boolean">Animaux</p>
+                <p className="cell-label-boolean">Eté</p>
+                <p className="cell-label-boolean">Automne</p>
+                <p className="cell-label-boolean">Hiver</p>
+                <p className="cell-label-boolean">Printemps</p>
+                <p className="cell-info" >Localite</p>
+                <p className="cell-info" >Région</p>
+
             </section>
             <section className="cell-line-container" >
-                {dispositifs && dispositifs.map((el) =>{
+                {cartes && cartes.map((el) =>{
                 return(
-                    <section className="cell-line" onClick={() => handleSelectOne(el.id_dispositif)} key={el.id_dispositif}>
-                        <p className="cell-id" placeholder="?">{el.id_dispositif}</p>
-                        <p className="cell-info">{el.brand}</p>
-                        <p className="cell-info">{el.model}</p>
-                        <a className="cell-info">{el.ref_dispositif}</a>
-                        <p className={(el.reserve_dispositif ? 'cell-boolean-oui' : 'cell-boolean')}>{el.reserve_dispositif}</p>
-                        <p className={(el.error_dispositif? 'cell-boolean oui' : 'cell-boolean')}>{el.error_dispositif}</p>
-                        <a className="cell-info">{el.firstname}</a>
-                        <a className="cell-info">{el.lastname}</a>
-                        <p className="cell-date" placeholder="-- -- --">{el.debut_dispositif ? DateFormatCell(el.debut_dispositif):"-- -- --"}</p>
-                        <p className="cell-date" placeholder="-- -- --">{el.retour_dispositif ? DateFormatCell(el.retour_dispositif):"-- -- --"}</p>
+                    <section className="cell-line" key={el.idbase} onClick={() => handleClick(el.idbase)}>
+                        <p className="cell-id" placeholder="?">{el.idbase}</p>
+                        <p className="cell-info">{el.cartes}</p>
+                        <p className="cell-info">{el.annee}</p>
+                        <p className={(el.couleur ? 'cell-boolean-oui' : 'cell-boolean')}>{el.couleur}</p>
+                        <p className={(el.ville ? 'cell-boolean-oui' : 'cell-boolean')}>{el.ville}</p>
+                        <p className={(el.campagne ? 'cell-boolean-oui' : 'cell-boolean')}>{el.campagne}</p>
+                        <p className={(el.mer ? 'cell-boolean-oui' : 'cell-boolean')}>{el.mer}</p>
+                        <p className={(el.montagne ? 'cell-boolean-oui' : 'cell-boolean')}>{el.montagne}</p>
+                        <p className={(el.personnes ? 'cell-boolean-oui' : 'cell-boolean')}>{el.personnes}</p>
+                        <p className={(el.animaux ? 'cell-boolean-oui' : 'cell-boolean')}>{el.animaux}</p>
+                        <p className={(el.ete ? 'cell-boolean-oui' : 'cell-boolean')}>{el.ete}</p>
+                        <p className={(el.automne ? 'cell-boolean-oui' : 'cell-boolean')}>{el.automne}</p>
+                        <p className={(el.hiver ? 'cell-boolean-oui' : 'cell-boolean')}>{el.hiver}</p>
+                        <p className={(el.printemps ? 'cell-boolean-oui' : 'cell-boolean')}>{el.printemps}</p>
+                        <p className="cell-info">{el.nomlocalite}</p>
+                        <p className="cell-info">{el.nomregion}</p>
                     </section>
                 )})}
             </section> 
         </section>
-        { isOneVisible ? <ModaleDescriptionById idOneDispositif={idOneDispositif} setIsOneVisible={setIsOneVisible} isOneVisible={isOneVisible} /> : null }
+        {oneCarteVisible? <OneCarte id_oneCarte={id_select} setOneCarteVisible={setOneCarteVisible} oneCarteVisible={oneCarteVisible} /> : null}
         </>
     )
 }

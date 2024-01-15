@@ -7,9 +7,6 @@ function Navbar() {
        
             <div className="navbarMenu">
                 <a href="/">Home</a>
-                <a href="/pageAppareil">Appareils</a>
-                <a href="/pageDispositifs">Dispositifs</a>
-                <a href="/pageUsers">Utilisateurs</a>
             </div>
         </div>
     )

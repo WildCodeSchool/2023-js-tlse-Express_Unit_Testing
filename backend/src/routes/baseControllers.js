@@ -25,10 +25,10 @@ const getOne = (req, res) => {
     })
     .catch(res.status(500));
 };
-
+// JOIN urltable AS u ON idurl=url            u.nomurl, u.commenturl,
 const getTotal = (req, res) => {
   db.query(
-    'SELECT idbase, cartes, annee, couleur, ville, campagne, mer, montagne, personnes, animaux, ete,automne, hiver, printemps, l.nomlocalite, r.nomregion FROM base JOIN localite AS l ON idlocalite=localite JOIN regions AS r ON idregions=id_region;'
+    'SELECT idbase, cartes, annee, couleur, ville, campagne, mer, montagne, personnes, animaux, ete, automne, hiver, printemps, is_liked, comment, l.nomlocalite, r.nomregion, p.nompays, u.nomurl, u.commenturl FROM base AS b JOIN localite AS l ON idlocalite=localite JOIN regions AS r ON idregions=id_region JOIN pays AS p ON idpays=id_pays JOIN urltable AS u ON idurl=b.url;'
   )
     .then(([result]) => {
       if (result.length) {
@@ -43,7 +43,7 @@ const getTotal = (req, res) => {
 const getTotalById = (req, res) => {
   const { id } = req.params;
   db.query(
-    'SELECT idbase, cartes, annee, couleur, ville, campagne, mer, montagne, personnes, animaux, ete, automne, hiver, printemps, l.nomlocalite, r.nomregion FROM base JOIN localite AS l ON idlocalite=localite JOIN regions AS r ON idregions=id_region WHERE idbase=?',
+    'SELECT idbase, cartes, annee, couleur, ville, campagne, mer, montagne, personnes, animaux, ete, automne, hiver, printemps, is_liked, comment, l.nomlocalite, r.nomregion, p.nompays, u.nomurl, u.commenturl FROM base AS b JOIN localite AS l ON idlocalite=localite JOIN regions AS r ON idregions=id_region JOIN pays AS p ON idpays=id_pays JOIN urltable AS u ON idurl=b.url WHERE idbase=?',
     [id]
   )
     .then(([result]) => {
