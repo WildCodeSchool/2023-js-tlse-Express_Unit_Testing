@@ -1,8 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from 'axios';
-import DateFormatCell from "../../components/utils/DateFormatCell";
-import OneCarte from "../../components/oneCarte.jsx/OneCarte";
+import OneCarte from "../../components/oneCarte/OneCarte";
 import "./pagehome.css";
 function Home() {
     const test = 25;

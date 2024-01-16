@@ -8,6 +8,7 @@
         "destructuré",
         "dompurify",
         "firstname",
+        "GENERAUX",
         "icone",
         "idbase",
         "idlocalite",
@@ -29,5 +30,6 @@
         "traks",
         "urltable",
         "Utilis"
-    ]
+    ],
+    "editor.fontSize": 12
 }

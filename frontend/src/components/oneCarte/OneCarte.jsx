@@ -2,9 +2,12 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import "./onecarte.css";
-import iconeCoeur from "../../../Public/coeur-trait.png";
+import coeurTrait from "../../../Public/coeur-trait.png";
+import coeurPlein from "../../../Public/coeur-plein.png";
+import picture from "../../../Public/church-1993645_640.jpg";
 function OneCarte(props) {
-    const [personne, setPersonne] = useState()
+    const [ clickCoeur, setClickCoeur ] = useState(false);
+    const [ iconeCoeur, setIconeCoeur ] = useState();
     const { id_oneCarte, setOneCarteVisible, oneCarteVisible} = props;
     console.log(id_oneCarte,"  ",`http://localhost:5000/api/base/${id_oneCarte}`);
 
@@ -12,7 +15,8 @@ function OneCarte(props) {
     const getOneCarte = async () =>{
         try {
             const response = await axios.get(`http://localhost:5000/api/base-total/${id_oneCarte}`);
-            setCarte(response.data);
+            const item= response.data;
+            setCarte(item[0]);
         } catch (error) {
             console.error(error);
         }
@@ -21,6 +25,11 @@ function OneCarte(props) {
         getOneCarte();
     },[]);
     carte && console.log("CARTE __ : ",carte);
+    const handleFavoris = () =>{
+        setClickCoeur(!clickCoeur);
+        clickCoeur? setIconeCoeur(coeurPlein) : setIconeCoeur(coeurTrait);
+        // utiliser clickCoeur pour is_like de DB
+    }
     const handleRetourCarte = () => {
         setOneCarteVisible(!oneCarteVisible);
     }
@@ -48,77 +57,77 @@ function OneCarte(props) {
             <div className='carte-container'>
                 <div className='carte-form'>
                     <section className='photo-container'>
-                        <img src="" className='carte-photo' onClick={handlePhoto} placeholder='Photo' />
-                    </section>
-                    <section className='modif-descriptif'>
-                        <button type="button" className='modif-button' onClick={handleModifyDescriptif}>Modifier le descriptif</button>
+                        <img src={picture} className='carte-photo' onClick={handlePhoto} placeholder='Photo' />
                     </section>
                     <section className='carte-descriptif'>
+                        <span className='modif-descriptif'>
+                            <button type="button" className='modif-button' onClick={handleModifyDescriptif}>Modifier le descriptif</button>
+                        </span>
                         <span className='carte-favoris'>
                             <p className='carte-libelle'>Ajouter aux favoris</p>
-                            <img src={iconeCoeur} className="icone-coeur" placeholder='+' />
+                            <img src={iconeCoeur} className="icone-coeur" placeholder='+' onClick={handleFavoris}/>
                         </span>
                         <ul className='descriptif-liste'>
                             <li className='carte-libelle'>
-                                <label>Année</label><p>{carte.annee}</p>
+                                <label>Année&nbsp;&nbsp;&nbsp;&nbsp;:</label><p>{carte.annee}</p>
                             </li>
                             <li className='carte-libelle'>
-                                <label>Localité</label><p>{carte.localite}</p>
+                                <label>Localité&nbsp;:</label><p>{carte.nomlocalite}</p>
                             </li>
                             <li className='carte-libelle'>
-                                <label>Région</label><p>{carte.region}</p>
+                                <label>Région&nbsp;&nbsp;&nbsp;:</label><p>{carte.nomregion}</p>
                             </li>
                             <li className='carte-libelle'>
-                                <label>Pays</label><p>{carte.pays}</p>
+                                <label>Pays&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</label><p>{carte.nompays}</p>
                             </li>
                         </ul>
                         <span className='descriptif-url'>
-                            <p className='carte-libelle'>URL</p>
+                            <p className='carte-libelle'>URL&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;:</p>
                             <p className='carte-libelle'>{carte.commenturl}</p>
                             <button type="button" className='button-visitez' onClick={handleVisitUrl}>Visitez le site</button>
                         </span>
                     </section>
-                    <section className='attrib-form'> 
+                    <section className='attrib-container'> 
                         <span className='modif-attrib'>
                             <button type="button" className='modif-button' onClick={handleModifyAttrib}>Modifier les attributs</button>
                         </span>
                         <ul className='attrib-liste'>
                             <li className="attrib-ligne">
-                                <label className={carte.personne? "on" : "off"}>personnes</label> 
+                                <p className={carte.personne? "on" : "off"}>personnes</p> 
                             </li>
                             <li className="attrib-ligne">
-                                <label className={carte.animaux? "on" : "off"}>animaux</label>
+                                <p className={carte.animaux? "on" : "off"}>animaux</p>
                             </li>
                             <li className="attrib-ligne">
-                                <label className={carte.couleur? "on" : "off"}>couleur</label>
-                            </li>
-                        </ul>
-                        <ul className='attrib-liste'>
-                            <li className="attrib-ligne">
-                            <label className={carte.ville? "on" : "off"}>ville</label>
-                            </li>
-                            <li className="attrib-ligne">
-                                <label className={carte.campagne? "on" : "off"}>campagne</label>
-                            </li>
-                            <li className="attrib-ligne">
-                                <label className={carte.mer? "on" : "off"}>mer</label>
-                            </li>
-                            <li className="attrib-ligne">
-                                <label className={carte.montagne? "on" : "off"}>montagne</label>
+                                <p className={carte.couleur? "on" : "off"}>couleur</p>
                             </li>
                         </ul>
                         <ul className='attrib-liste'>
                             <li className="attrib-ligne">
-                                <label className={carte.ete? "on" : "off"}>ete</label>
+                            <p className={carte.ville? "on" : "off"}>ville</p>
                             </li>
                             <li className="attrib-ligne">
-                                <label className={carte.automne? "on" : "off"}>automne</label> 
+                                <p className={carte.campagne? "on" : "off"}>campagne</p>
                             </li>
                             <li className="attrib-ligne">
-                                <label className={carte.hiver? "on" : "off"}>hiver</label>
+                                <p className={carte.mer? "on" : "off"}>mer</p>
                             </li>
                             <li className="attrib-ligne">
-                                <label className={carte.printemps? "on" : "off"}>printemps</label>
+                                <p className={carte.montagne? "on" : "off"}>montagne</p>
+                            </li>
+                        </ul>
+                        <ul className='attrib-liste'>
+                            <li className="attrib-ligne">
+                                <p className={carte.ete? "on" : "off"}>ete</p>
+                            </li>
+                            <li className="attrib-ligne">
+                                <p className={carte.automne? "on" : "off"}>automne</p> 
+                            </li>
+                            <li className="attrib-ligne">
+                                <p className={carte.hiver? "on" : "off"}>hiver</p>
+                            </li>
+                            <li className="attrib-ligne">
+                                <p className={carte.printemps? "on" : "off"}>printemps</p>
                             </li>
                         </ul>
                     </section>
@@ -126,12 +135,12 @@ function OneCarte(props) {
                         <span className='modif-comment'>
                             <button type="button" className='modif-button' onClick={handleModifyCommentaire}>Ajouter ou modifier le commentaire</button>
                         </span>
-                        <p type="textarea" className='comment-text'>{carte.comment}</p>
+                        <p type="textarea" className='comment-text' placeholder='Pas de commentaire'>{carte.comment}</p>
                     </section>
                 </div>
                 <div className='buttons'>
                     <button type="button" className='button-ajouter-carte' onClick={handleNewCarte}>Ajouter une carte</button>
-                    <button type="button" className='button-router-carte' onClick={handleRetourCarte}>Retour</button>
+                    <button type="button" className='button-retour-carte' onClick={handleRetourCarte}>Retour</button>
                 </div>
             </div> 
         </>
