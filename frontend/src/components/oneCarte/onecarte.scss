@@ -1,43 +1,20 @@
-// GENERAUX
-.carte-libelle{
-    display: flex;
-    align-items: center;
-    color: black;
-    list-style: none;
-    height: 16px;
-    label{
-        width: 64px;
-    }
-}
-.on{
-    color: green
-}
-.off{
-    color: red;
-}
-.modif-button{
-    color: blue;
-    border: none;
-    background-color: transparent;
-    font-style: italic;
-    &:hover{
-        color:rgb(100, 100, 255);
-        cursor: pointer;
-    }
-}
 // CONTAINER GLOBAL
 .carte-container{
-    width: 1000px;
-    height: 800px;
-    background-color: darkgrey;
+    position: absolute;
+    top:40px;
+    width: 880px;
+    height: 640px;
+    background-color: white;
+    box-shadow: 4px 4px 3px gray;
     display: flex;
     flex-wrap: wrap;
     padding: 8px;
 }
 .carte-form{
-    width: 1100px;
-    height: 600px;
-    border: 3px dashed black;
+    width: 872px;
+    height: 580px;
+    border: 1px solid gainsboro;
+    background-color: white;
     display: flex;
     flex-wrap: wrap;
     padding: 8px;
@@ -53,6 +30,7 @@
         width: 426px;
         height: 300px;
         border: 8px solid white;
+        box-shadow: 4px 4px 3px grey;
     }
 }
 //DESCRIPTIF
@@ -60,8 +38,9 @@
     width: 400px;
     height: 210px;
     background-color: white;
-    border: 1px dashed brown;
     padding: 8px 0 8px 0;
+    border-top: 1px solid gray;
+    border-right: 1px solid gray;
 }
 .modif-descriptif{
     margin-left: 260px;
@@ -107,9 +86,10 @@
         height: 32px;
         border-radius: 8px;
         background-color: green;
+        border: 2px solid green;
         color: white;
         &:hover{
-            background-color:white;
+            background-color: transparent;
             color: green;
         }
     }
@@ -119,7 +99,10 @@
     width: 342px;
     height: 226px;
     padding: 8px;
+    margin-right: 43px;
     background-color: white;
+    border-top: 1px solid gray;
+    border-right: 1px solid gray;
     
 }
 .modif-attrib{
@@ -144,7 +127,7 @@
         height: 22px;
         border: 1px solid grey;
         border-radius: 16px;
-        background-color: antiquewhite;
+        background-color: transparent;
         padding: 0 8px 0 8px;
         
     }
@@ -154,45 +137,85 @@
     width: 400px;
     height: 226px;
     padding: 8px;
-    margin-left: 96px;
+    margin-left: 43px;
     background-color: white;
+    border-top: 1px solid gray;
+    border-right: 1px solid gray;
 }
 .modif-comment{
     width: 100px;
     height: 16px;
-    margin-left: 160px;
+    margin-left: 180px;
     
 }
 .comment-text{
-    width: 398px;
+    width: 382px;
     height: 188px;
     margin: 8px 0 8px 0;
     border: 1px solid gray;
     border-radius: 8px;
     background-color: white;
     color: black;
+    padding: 4px 8px 8px 8px;
 }
 // BOUTONS
-.button-ajouter-carte{
-    width: 64px;
-    height: 32px;
-    background-color: green;
-    color: white;
-    &:hover{
-        background-color: white;
-    color: green;
-    }
+.buttons{
+    width: 872px;
+    display: flex;
+    justify-content: right;
 }
 .button-retour-carte{
-    width: 64px;
+    width: 120px;
     height: 32px;
     background-color: transparent;
+    margin-right: 16px;
     color: green;
-    border: 1px solid green;
+    border: 2px solid green;
+    border-radius: 8px;
     &:hover{
-        background-color:green;
+        background-color:rgb(47, 164, 47);
         color: white;
         border: 1px solid white;
     }
 }
+.button-ajouter-carte{
+    width: 120px;
+    height: 32px;
+    background-color: green;
+    border: 2px solid green;
+    border-radius: 8px;
+    color: white;
+    &:hover{
+        background-color: transparent;
+        color: green;
+    }
+}
+// GENERAUX - COMMUNS
+.carte-libelle{
+    display: flex;
+    align-items: center;
+    color: black;
+    list-style: none;
+    height: 16px;
+    label{
+        width: 64px;
+    }
+}
+.on{
+    color: green
+}
+.off{
+    color: red;
+}
+.modif-button{
+    color: blue;
+    border: none;
+    background-color: transparent;
+    font-style: italic;
+    &:hover{
+        color:rgb(100, 100, 255);
+        cursor: pointer;
+    }
+}
+
 

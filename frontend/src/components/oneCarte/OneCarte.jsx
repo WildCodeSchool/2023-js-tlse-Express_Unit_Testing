@@ -6,29 +6,32 @@ import coeurTrait from "../../../Public/coeur-trait.png";
 import coeurPlein from "../../../Public/coeur-plein.png";
 import picture from "../../../Public/church-1993645_640.jpg";
 function OneCarte(props) {
-    const [ clickCoeur, setClickCoeur ] = useState(false);
+    const [ clickCoeur, setClickCoeur ] = useState(0);
     const [ iconeCoeur, setIconeCoeur ] = useState();
     const { id_oneCarte, setOneCarteVisible, oneCarteVisible} = props;
-    console.log(id_oneCarte,"  ",`http://localhost:5000/api/base/${id_oneCarte}`);
-
     const [carte, setCarte] = useState([]);
     const getOneCarte = async () =>{
         try {
             const response = await axios.get(`http://localhost:5000/api/base-total/${id_oneCarte}`);
             const item= response.data;
             setCarte(item[0]);
-        } catch (error) {
+            (carte.is_liked !== 0)? setIconeCoeur(coeurPlein) : setIconeCoeur(coeurTrait)
+            } 
+            catch (error) {
             console.error(error);
         }
     }
     useEffect(() =>{
         getOneCarte();
     },[]);
-    carte && console.log("CARTE __ : ",carte);
     const handleFavoris = () =>{
         setClickCoeur(!clickCoeur);
-        clickCoeur? setIconeCoeur(coeurPlein) : setIconeCoeur(coeurTrait);
+        handleToggleCoeur(clickCoeur);
+        console.log("coeur ", clickCoeur);
         // utiliser clickCoeur pour is_like de DB
+    }
+    const handleToggleCoeur = (el) =>{
+        el? setIconeCoeur(coeurPlein) : setIconeCoeur(coeurTrait);
     }
     const handleRetourCarte = () => {
         setOneCarteVisible(!oneCarteVisible);
@@ -64,7 +67,7 @@ function OneCarte(props) {
                             <button type="button" className='modif-button' onClick={handleModifyDescriptif}>Modifier le descriptif</button>
                         </span>
                         <span className='carte-favoris'>
-                            <p className='carte-libelle'>Ajouter aux favoris</p>
+                            <p className='carte-libelle'>Ajouter aux favoris{carte.is_liked}</p>
                             <img src={iconeCoeur} className="icone-coeur" placeholder='+' onClick={handleFavoris}/>
                         </span>
                         <ul className='descriptif-liste'>
@@ -139,8 +142,8 @@ function OneCarte(props) {
                     </section>
                 </div>
                 <div className='buttons'>
-                    <button type="button" className='button-ajouter-carte' onClick={handleNewCarte}>Ajouter une carte</button>
                     <button type="button" className='button-retour-carte' onClick={handleRetourCarte}>Retour</button>
+                    <button type="button" className='button-ajouter-carte' onClick={handleNewCarte}>Ajouter une carte</button>
                 </div>
             </div> 
         </>
