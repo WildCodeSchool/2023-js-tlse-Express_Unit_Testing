@@ -1,21 +1,22 @@
 import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
+import Draggable from 'react-draggable';
 import "./onecarte.css";
 import coeurTrait from "../../../Public/coeur-trait.png";
 import coeurPlein from "../../../Public/coeur-plein.png";
 import picture from "../../../Public/church-1993645_640.jpg";
 function OneCarte(props) {
-    const [ clickCoeur, setClickCoeur ] = useState(0);
-    const [ iconeCoeur, setIconeCoeur ] = useState();
     const { id_oneCarte, setOneCarteVisible, oneCarteVisible} = props;
-    const [carte, setCarte] = useState([]);
+    const [ clickCoeur, setClickCoeur ] = useState(false);
+    const [ iconeCoeur, setIconeCoeur ] = useState(coeurTrait);
+    const [ carte, setCarte ] = useState([]);
     const getOneCarte = async () =>{
         try {
             const response = await axios.get(`http://localhost:5000/api/base-total/${id_oneCarte}`);
             const item= response.data;
             setCarte(item[0]);
-            (carte.is_liked !== 0)? setIconeCoeur(coeurPlein) : setIconeCoeur(coeurTrait)
+            (carte.is_liked !== false)? setIconeCoeur(coeurPlein) : setIconeCoeur(coeurTrait)
             } 
             catch (error) {
             console.error(error);
@@ -56,8 +57,9 @@ function OneCarte(props) {
     }
     
     return(
-        <>
+        <Draggable handle='.carte-entete'>
             <div className='carte-container'>
+                <div className='carte-entete'>Carte n° {carte.idbase}</div>
                 <div className='carte-form'>
                     <section className='photo-container'>
                         <img src={picture} className='carte-photo' onClick={handlePhoto} placeholder='Photo' />
@@ -146,7 +148,7 @@ function OneCarte(props) {
                     <button type="button" className='button-ajouter-carte' onClick={handleNewCarte}>Ajouter une carte</button>
                 </div>
             </div> 
-        </>
+        </Draggable>
     )
 }
 export default OneCarte;
