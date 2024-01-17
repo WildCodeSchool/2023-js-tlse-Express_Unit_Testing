@@ -1,0 +1,43 @@
+.zoom-container {
+  position: absolute;
+  top: 10rem;
+  left: 8rem;
+  width: 49.2rem;
+  height: 33.2rem;
+  box-shadow: 4px 4px 3px gray;
+}
+.zoom-container .zoom-move {
+  position: absolute;
+  z-index: 10;
+  margin-top: 3rem;
+  left: 0rem;
+  background-color: transparent;
+  width: 49.2rem;
+  height: 30.2rem;
+}
+.zoom-container .zoom-move:hover {
+  cursor: move;
+}
+.zoom-container .zoom-photo {
+  width: 49.2rem;
+  height: 33.2rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.zoom-container .zoom-button {
+  position: absolute;
+  top: 1rem;
+  left: 44rem;
+  width: 4rem;
+  height: 2rem;
+  border-radius: 2rem;
+  border: 2px solid green;
+  background-color: transparent;
+  color: green;
+}
+.zoom-container .zoom-button:hover {
+  cursor: pointer;
+  border: 2px solid rgb(60, 240, 60);
+  background-color: transparent;
+  color: rgb(60, 240, 60);
+}/*# sourceMappingURL=onephotozoom.css.map */

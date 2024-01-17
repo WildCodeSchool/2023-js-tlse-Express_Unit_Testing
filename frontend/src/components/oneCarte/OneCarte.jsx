@@ -2,12 +2,14 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 import Draggable from 'react-draggable';
+import OnePhotoZoom from '../onePhotoZoom/OnePhotoZoom';
 import "./onecarte.css";
 import coeurTrait from "../../../Public/coeur-trait.png";
 import coeurPlein from "../../../Public/coeur-plein.png";
-import picture from "../../../Public/church-1993645_640.jpg";
+import picture from "../../../Public/church-1993645_640.jpg"; 
 function OneCarte(props) {
     const { id_oneCarte, setOneCarteVisible, oneCarteVisible} = props;
+    const [ zoomVisible, setZoomVisible] = useState(false);
     const [ clickCoeur, setClickCoeur ] = useState(false);
     const [ iconeCoeur, setIconeCoeur ] = useState(coeurTrait);
     const [ carte, setCarte ] = useState([]);
@@ -41,7 +43,7 @@ function OneCarte(props) {
         console.log("handleNewCarte");
     }
     const handlePhoto = () =>{
-        console.log("handlePhoto");
+        setZoomVisible(!zoomVisible);
     }
     const handleModifyDescriptif = () => {
         console.log("handleModifyDescriptif");
@@ -57,6 +59,7 @@ function OneCarte(props) {
     }
     
     return(
+        <>
         <Draggable handle='.carte-entete'>
             <div className='carte-container'>
                 <div className='carte-entete'>Carte n° {carte.idbase}</div>
@@ -64,7 +67,7 @@ function OneCarte(props) {
                     <section className='photo-container'>
                         <img src={picture} className='carte-photo' onClick={handlePhoto} placeholder='Photo' />
                     </section>
-                    <section className='carte-descriptif'>
+                    <section className='descriptif-container'>
                         <span className='modif-descriptif'>
                             <button type="button" className='modif-button' onClick={handleModifyDescriptif}>Modifier le descriptif</button>
                         </span>
@@ -136,19 +139,21 @@ function OneCarte(props) {
                             </li>
                         </ul>
                     </section>
-                    <section className='comment-form'>
+                    <section className='comment-container'>
                         <span className='modif-comment'>
                             <button type="button" className='modif-button' onClick={handleModifyCommentaire}>Ajouter ou modifier le commentaire</button>
                         </span>
                         <p type="textarea" className='comment-text' placeholder='Pas de commentaire'>{carte.comment}</p>
                     </section>
                 </div>
-                <div className='buttons'>
+                <div className='buttons-container'>
                     <button type="button" className='button-retour-carte' onClick={handleRetourCarte}>Retour</button>
                     <button type="button" className='button-ajouter-carte' onClick={handleNewCarte}>Ajouter une carte</button>
                 </div>
             </div> 
         </Draggable>
+        {zoomVisible? <OnePhotoZoom picture={picture} setZoomVisible={setZoomVisible} zoomVisible={zoomVisible} /> : null}
+        </>
     )
 }
 export default OneCarte;
