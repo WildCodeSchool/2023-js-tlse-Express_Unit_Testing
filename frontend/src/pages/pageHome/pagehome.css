@@ -10,6 +10,10 @@
   width: 4rem;
   text-align: right;
 }
+.cell-container .cell-line .cell-id:hover, .cell-container .stamp-line .cell-id:hover {
+  background-color: rgb(133, 139, 251);
+  cursor: pointer;
+}
 .cell-container .cell-line .cell-info, .cell-container .stamp-line .cell-info {
   width: 8rem;
   padding-left: 0.5rem;
@@ -18,24 +22,22 @@
 .cell-container .cell-line .cell-label-boolean, .cell-container .stamp-line .cell-label-boolean {
   width: 3rem;
   font-size: 0.8rem;
-  text-align: left;
+  text-align: center;
+  color: blue;
 }
 .cell-container .cell-line .cell-boolean, .cell-container .stamp-line .cell-boolean {
   width: 3rem;
-  height: 1, 2rem;
+  height: 1.2rem;
   text-align: center;
-  border-radius: 50%;
-  background-color: var(--red-500);
-  color: var(--red-500);
+  background: transparent;
+  color: var(--grey-300);
 }
 .cell-container .cell-line .cell-boolean-oui, .cell-container .stamp-line .cell-boolean-oui {
   width: 3rem;
   height: 1, 2rem;
-  border: none;
   text-align: center;
-  border-radius: 50%;
-  background-color: var(--green-500);
-  color: var(--green-500);
+  background: transparent;
+  color: var(--green-600);
 }
 .cell-container .cell-line .cell-date, .cell-container .stamp-line .cell-date {
   width: 8rem;
@@ -280,7 +282,7 @@
 }
 
 .cell-container {
-  padding-top: 5rem;
+  padding-top: 3rem;
 }
 .cell-container .cell-line-container {
   height: 80vh;

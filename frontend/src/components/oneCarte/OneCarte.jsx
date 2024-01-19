@@ -4,9 +4,9 @@ import { useState, useEffect } from 'react';
 import Draggable from 'react-draggable';
 import OnePhotoZoom from '../onePhotoZoom/OnePhotoZoom';
 import "./onecarte.css";
-import coeurTrait from "../../../Public/coeur-trait.png";
-import coeurPlein from "../../../Public/coeur-plein.png";
-import picture from "../../../Public/church-1993645_640.jpg"; 
+import coeurTrait from "../../Public/coeur-trait.png";
+import coeurPlein from "../../Public/coeur-plein.png";
+import picture from "../../Public/church-1993645_640.jpg"; 
 function OneCarte(props) {
     const { id_oneCarte, setOneCarteVisible, oneCarteVisible} = props;
     const [ zoomVisible, setZoomVisible] = useState(false);

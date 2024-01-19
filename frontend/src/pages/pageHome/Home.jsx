@@ -2,23 +2,19 @@ import React from "react";
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import OneCarte from "../../components/oneCarte/OneCarte";
+import FilterBar from "../../components/Filterbar/FilterBar";
 import "./pagehome.css";
 function Home() {
     const test = 25;
     const [ cartes, setCartes] = useState([]);
     const [ id_select, setId_select] = useState();
     const [ oneCarteVisible, setOneCarteVisible] = useState(false);
+    const [ sortToggleById, setSortToggleById] = useState(false);
         const getCartes = async () =>{
         try {
             const response = await axios.get(`http://localhost:5000/api/base-total`);
             setCartes(response.data);
-            // cartes.sort( function compare(a, b){
-            //     if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
-            //         return -1;
-            //     if (parseInt(a.idbase,10) < parseInt(b.idbase,10))
-            //         return 1;
-            //     return 0;                  
-            // });
+            
         } catch (error) {
             console.error(error);
         }
@@ -26,32 +22,52 @@ function Home() {
     useEffect(() =>{
         getCartes();
     },[]);
+    const handleSortId = (e) =>{
+        console.log(e.target);
+        setSortToggleById(!sortToggleById);
+        if(sortToggleById){
+        cartes.sort( function compare(a, b){
+            if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
+                return -1;
+            if (parseInt(a.idbase,10) < parseInt(b.idbase,10))
+                return 1;
+            return 0;                  
+            });
+        } else {
+        cartes.sort( function compare(a, b){
+            if (parseInt(a.idbase,10) < parseInt(b.idbase,10))
+                return -1;
+            if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
+                return 1;
+            return 0;                  
+            });
+        }
+    }
     const handleClick = (el) => {
         setId_select(el);
         setOneCarteVisible(true);
     }
-    
     return(
         <>
         <section className="cell-container">
+        <FilterBar />
             <section className="stamp-line">
-                <p className="cell-id">id</p>
+                <p className="cell-id" onClick={handleSortId}>id</p>
                 <p className="cell-info" >Carte</p>
                 <p className="cell-info" >Année</p>
-                <p className="cell-label-boolean" >Couleur</p>
-                <p className="cell-label-boolean">Ville</p>
-                <p className="cell-label-boolean">Campagne</p>
-                <p className="cell-label-boolean">Mer</p>
-                <p className="cell-label-boolean">Montagne</p>
-                <p className="cell-label-boolean">Personnes</p>
-                <p className="cell-label-boolean">Animaux</p>
-                <p className="cell-label-boolean">Eté</p>
-                <p className="cell-label-boolean">Automne</p>
-                <p className="cell-label-boolean">Hiver</p>
-                <p className="cell-label-boolean">Printemps</p>
+                <p className="cell-label-boolean">couleur</p>
+                <p className="cell-label-boolean">ville</p>
+                <p className="cell-label-boolean">nature</p>
+                <p className="cell-label-boolean">montagne</p>
+                <p className="cell-label-boolean">mer</p>
+                <p className="cell-label-boolean">personne</p>
+                <p className="cell-label-boolean">animal</p>
+                <p className="cell-label-boolean">ete</p>
+                <p className="cell-label-boolean">automne</p>
+                <p className="cell-label-boolean">hiver</p>
+                <p className="cell-label-boolean">printemps</p>
                 <p className="cell-info" >Localite</p>
                 <p className="cell-info" >Région</p>
-
             </section>
             <section className="cell-line-container" >
                 {cartes && cartes.map((el) =>{
