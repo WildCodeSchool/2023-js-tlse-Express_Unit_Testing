@@ -4,14 +4,29 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.2rem 1rem 0.2rem 0.1rem;
-  border: 1px solid violet;
+  border: 1px dashed grey;
 }
 .cell-container .cell-line .cell-id, .cell-container .stamp-line .cell-id {
   width: 4rem;
-  text-align: right;
+  border-radius: 4px;
+  text-align: center;
 }
 .cell-container .cell-line .cell-id:hover, .cell-container .stamp-line .cell-id:hover {
-  background-color: rgb(133, 139, 251);
+  background-color: rgb(222, 224, 249);
+  cursor: pointer;
+}
+.cell-container .cell-line .cell-info-carte, .cell-container .stamp-line .cell-info-carte {
+  width: 8rem;
+  padding-left: 0.5rem;
+  text-align: center;
+}
+.cell-container .cell-line .cell-info-annee, .cell-container .stamp-line .cell-info-annee {
+  width: 4rem;
+  padding-left: 0.5rem;
+  text-align: center;
+}
+.cell-container .cell-line .cell-info-annee:hover, .cell-container .stamp-line .cell-info-annee:hover {
+  background-color: rgb(222, 224, 249);
   cursor: pointer;
 }
 .cell-container .cell-line .cell-info, .cell-container .stamp-line .cell-info {
@@ -19,11 +34,15 @@
   padding-left: 0.5rem;
   text-align: left;
 }
+.cell-container .cell-line .cell-info:hover, .cell-container .stamp-line .cell-info:hover {
+  background-color: rgb(222, 224, 249);
+  cursor: pointer;
+}
 .cell-container .cell-line .cell-label-boolean, .cell-container .stamp-line .cell-label-boolean {
   width: 3rem;
   font-size: 0.8rem;
   text-align: center;
-  color: blue;
+  color: rgb(253, 253, 253);
 }
 .cell-container .cell-line .cell-boolean, .cell-container .stamp-line .cell-boolean {
   width: 3rem;

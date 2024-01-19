@@ -10,6 +10,10 @@ function Home() {
     const [ id_select, setId_select] = useState();
     const [ oneCarteVisible, setOneCarteVisible] = useState(false);
     const [ sortToggleById, setSortToggleById] = useState(false);
+    const [ sortToggleByAnnee, setSortToggleByAnnee ] = useState(false);
+    const [ sortToggleByLocalite, setSortToggleByLocalite ] = useState(false);
+    const [ sortToggleByRegion, setSortToggleByRegion ] = useState(false);
+
         const getCartes = async () =>{
         try {
             const response = await axios.get(`http://localhost:5000/api/base-total`);
@@ -22,26 +26,87 @@ function Home() {
     useEffect(() =>{
         getCartes();
     },[]);
-    const handleSortId = (e) =>{
-        console.log(e.target);
-        setSortToggleById(!sortToggleById);
-        if(sortToggleById){
-        cartes.sort( function compare(a, b){
-            if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
-                return -1;
-            if (parseInt(a.idbase,10) < parseInt(b.idbase,10))
-                return 1;
-            return 0;                  
-            });
-        } else {
-        cartes.sort( function compare(a, b){
-            if (parseInt(a.idbase,10) < parseInt(b.idbase,10))
-                return -1;
-            if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
-                return 1;
-            return 0;                  
-            });
+    const handleSortId = () =>{
+            setSortToggleById(!sortToggleById);
+            if(sortToggleById){
+            cartes.sort( function compare(a, b){
+                if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
+                    return -1;
+                if (parseInt(a.idbase,10) < parseInt(b.idbase,10))
+                    return 1;
+                return 0;                  
+                });
+            } else {
+            cartes.sort( function compare(a, b){
+                if (parseInt(a.idbase,10) < parseInt(b.idbase,10))
+                    return -1;
+                if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
+                    return 1;
+                return 0;                  
+                });
+            }
         }
+    const handleSortAnnee = () =>{
+            setSortToggleByAnnee(!sortToggleByAnnee);
+            if(sortToggleByAnnee){
+            cartes.sort( function compare(a, b){
+                if (parseInt(a.annee,10) > parseInt(b.annee,10))
+                    return -1;
+                if (parseInt(a.annee,10) < parseInt(b.annee,10))
+                    return 1;
+                return 0;                  
+                });
+            } else {
+            cartes.sort( function compare(a, b){
+                if (parseInt(a.annee,10) < parseInt(b.annee,10))
+                    return -1;
+                if (parseInt(a.annee,10) > parseInt(b.annee,10))
+                    return 1;
+                return 0;                  
+                });
+            }
+        }
+    const handleSortLocalite = () =>{
+        setSortToggleByLocalite(!sortToggleByLocalite);
+            if(sortToggleByLocalite){
+            cartes.sort( function compare(a, b){
+                if (a.nomlocalite.toLowerCase() > b.nomlocalite.toLowerCase())
+                    return -1;
+                if (a.nomlocalite.toLowerCase() < b.nomlocalite.toLowerCase())
+                    return 1;
+                return 0;                  
+                });
+            } else {
+            cartes.sort( function compare(a, b){
+                if (a.nomlocalite.toLowerCase() < b.nomlocalite.toLowerCase())
+                    return -1;
+                if (a.nomlocalite.toLowerCase() > b.nomlocalite.toLowerCase())
+                    return 1;
+                return 0;                  
+                });
+            }
+
+    }
+    const handleSortRegion = () =>{
+        setSortToggleByRegion(!sortToggleByRegion);
+            if(sortToggleByRegion){
+            cartes.sort( function compare(a, b){
+                if (a.nomregion.toLowerCase() > b.nomregion.toLowerCase())
+                    return -1;
+                if (a.nomregion.toLowerCase() < b.nomregion.toLowerCase())
+                    return 1;
+                return 0;                  
+                });
+            } else {
+            cartes.sort( function compare(a, b){
+                if (a.nomregion.toLowerCase() < b.nomregion.toLowerCase())
+                    return -1;
+                    if (a.nomregion.toLowerCase() > b.nomregion.toLowerCase())
+                    return 1;
+                return 0;                  
+                });
+            }
+
     }
     const handleClick = (el) => {
         setId_select(el);
@@ -53,8 +118,8 @@ function Home() {
         <FilterBar />
             <section className="stamp-line">
                 <p className="cell-id" onClick={handleSortId}>id</p>
-                <p className="cell-info" >Carte</p>
-                <p className="cell-info" >Année</p>
+                <p className="cell-info-carte" >Carte</p>
+                <p className="cell-info-annee" onClick={handleSortAnnee}>Année</p>
                 <p className="cell-label-boolean">couleur</p>
                 <p className="cell-label-boolean">ville</p>
                 <p className="cell-label-boolean">nature</p>
@@ -66,8 +131,8 @@ function Home() {
                 <p className="cell-label-boolean">automne</p>
                 <p className="cell-label-boolean">hiver</p>
                 <p className="cell-label-boolean">printemps</p>
-                <p className="cell-info" >Localite</p>
-                <p className="cell-info" >Région</p>
+                <p className="cell-info" onClick={handleSortLocalite}>Localite</p>
+                <p className="cell-info" onClick={handleSortRegion}>Région</p>
             </section>
             <section className="cell-line-container" >
                 {cartes && cartes.map((el) =>{
@@ -75,7 +140,7 @@ function Home() {
                     <section className="cell-line" key={el.idbase} onClick={() => handleClick(el.idbase)}>
                         <p className="cell-id" placeholder="?">{el.idbase}</p>
                         <p className="cell-info">{el.cartes}</p>
-                        <p className="cell-info">{el.annee}</p>
+                        <p className="cell-info-annee">{el.annee}</p>
                         <p className={(el.couleur ? 'cell-boolean-oui' : 'cell-boolean')}>{el.couleur}</p>
                         <p className={(el.ville ? 'cell-boolean-oui' : 'cell-boolean')}>{el.ville}</p>
                         <p className={(el.campagne ? 'cell-boolean-oui' : 'cell-boolean')}>{el.campagne}</p>

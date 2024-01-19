@@ -44,12 +44,27 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.2rem 1rem 0.2rem 0.1rem;
-    border: 1px solid violet;
+    border: 1px dashed grey;
     .cell-id{
         width: 4rem;
-        text-align: right;
+        border-radius: 4px;
+        text-align: center;
         &:hover{
-            background-color: rgb(133, 139, 251);
+            background-color: rgb(222, 224, 249);
+            cursor: pointer;
+        }
+    }
+    .cell-info-carte{
+        width: 8rem;
+        padding-left: 0.5rem;
+        text-align: center;
+    }
+    .cell-info-annee{
+        width: 4rem;
+        padding-left: 0.5rem;
+        text-align: center;
+        &:hover{
+            background-color: rgb(222, 224, 249);
             cursor: pointer;
         }
     }
@@ -57,12 +72,16 @@
         width: 8rem;
         padding-left: 0.5rem;
         text-align: left;
+        &:hover{
+            background-color: rgb(222, 224, 249);
+            cursor: pointer;
+        }
     }
     .cell-label-boolean{
         width: 3rem;
         font-size: 0.8rem;
         text-align: center;
-        color: blue;
+        color: rgb(253, 253, 253);
     }
     .cell-boolean{
         width: 3rem;
