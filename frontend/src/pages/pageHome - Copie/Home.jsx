@@ -24,10 +24,7 @@ function Home() {
     useEffect(() =>{
         getCartes();
     },[]);
-    const handleSortId = (e) =>{
-        console.log("EEEEE   ",e);
-        console.log("EEEEE   ",e.target.attributes.name);
-        const item = e.target.attributes.name
+    const handleSortId = () =>{
             setSortToggleById(!sortToggleById);
             if(sortToggleById){
             cartes.sort( function compare(a, b){
@@ -118,7 +115,7 @@ function Home() {
         <>
         <section className="cell-container">
             <section className="stamp-line">
-                <p className="cell-id" name="idBase" onClick={handleSortId}>id</p>
+                <p className="cell-id" onClick={handleSortId}>id</p>
                 <p className="cell-info-carte" >Carte</p>
                 <p className="cell-info-annee" onClick={handleSortAnnee}>Année</p>
                 <p className="cell-label-boolean">couleur</p>

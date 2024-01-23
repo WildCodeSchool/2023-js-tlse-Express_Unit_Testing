@@ -12,9 +12,11 @@ router.get('/base', base.getAll);
 router.get('/base/:id', base.getOne);
 router.get('/base-total', base.getTotal);
 router.get('/base-total/:id', base.getTotalById);
+router.get('/base-col', base.getTotalByCol);
 router.post('/base', base.postBase);
 router.put('/base/:id', base.updateBase);
 router.delete('/base/:id', base.deleteBase);
+router.get('/basecol', base.getCols);
 
 router.get('/localite', localite.getAllLocalite);
 router.get('/localite/:id', localite.getOneLocalite);

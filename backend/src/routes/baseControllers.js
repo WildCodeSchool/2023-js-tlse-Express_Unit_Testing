@@ -55,6 +55,21 @@ const getTotalById = (req, res) => {
     })
     .catch(res.status(500));
 };
+const getTotalByCol = (req, res) => {
+  const { namecol, namesearch } = req.query;
+  db.query(
+    `SELECT idbase, cartes, annee, couleur, ville, campagne, mer, montagne, personnes, animaux, ete, automne, hiver, printemps, is_liked, comment, l.nomlocalite, r.nomregion, p.nompays, u.nomurl, u.commenturl FROM base AS b JOIN localite AS l ON idlocalite=localite JOIN regions AS r ON idregions=id_region JOIN pays AS p ON idpays=id_pays JOIN urltable AS u ON idurl=b.url WHERE ${namecol}=?`,
+    [namesearch]
+  )
+    .then(([result]) => {
+      if (result.length) {
+        res.status(200).json(result);
+      } else {
+        res.status(404);
+      }
+    })
+    .catch(res.status(500));
+};
 const postBase = (req, res) => {
   const {
     cartes,
@@ -161,13 +176,26 @@ const deleteBase = (req, res) => {
     })
     .catch(res.status(500));
 };
+const getCols = (req,res) => {
+  db.query('SHOW COLUMNS FROM base')
+  .then(([result]) => {
+    if (result.length) {
+      res.status(200).json(result);
+    } else {
+      res.status(404);
+    }
+  })
+  .catch(res.status(500));
+}
 
 module.exports = {
   getAll,
   getOne,
   getTotal,
   getTotalById,
+  getTotalByCol,
   postBase,
   updateBase,
   deleteBase,
+  getCols,
 };
