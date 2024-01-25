@@ -50,7 +50,7 @@
         border-radius: 4px;
         text-align: center;
         &:hover{
-            background-color: rgb(222, 224, 249);
+            color: var(--blue-200);
             cursor: pointer;
         }
     }
@@ -65,7 +65,7 @@
         padding-left: 0.5rem;
         text-align: center;
         &:hover{
-            background-color: rgb(222, 224, 249);
+            color: var(--blue-200);
             cursor: pointer;
         }
     }
@@ -74,7 +74,7 @@
         padding-left: 0.5rem;
         text-align: left;
         &:hover{
-            background-color: rgb(222, 224, 249);
+            color: var(--blue-200);
             cursor: pointer;
         }
     }

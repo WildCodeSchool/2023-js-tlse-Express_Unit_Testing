@@ -4,6 +4,7 @@ import axios from 'axios';
 import OneCarte from "../../components/oneCarte/OneCarte";
 import hautBas from '../../Public/hautBas.png';
 import "./pagehome.css";
+import SearchBar from "../../components/searchBar/SearchBar";
 function Home() {
     const [ cartes, setCartes] = useState([]);
     const [ id_select, setId_select] = useState();
@@ -12,11 +13,16 @@ function Home() {
     const [ sortToggleByAnnee, setSortToggleByAnnee ] = useState(false);
     const [ sortToggleByLocalite, setSortToggleByLocalite ] = useState(false);
     const [ sortToggleByRegion, setSortToggleByRegion ] = useState(false);
-        const getCartes = async () =>{
-        try {
-            const response = await axios.get(`http://localhost:5000/api/base-total`);
+    const [ searchAnnee, setSearchAnnee ] = useState("");
+    const [ searchLocalite, setSearchLocalite ] = useState("");
+    const [ searchRegion, setSearchRegion ] = useState("");
+    const [ searchPays, setSearchPays ] = useState("");
+    
+    const getCartes = async () =>{
+        try{
+        const response = await axios.get(`http://localhost:5000/api/base-total`);
             setCartes(response.data);
-            
+
         } catch (error) {
             console.error(error);
         }
@@ -25,11 +31,9 @@ function Home() {
         getCartes();
     },[]);
     const handleSortId = (e) =>{
-        console.log("EEEEE   ",e);
-        console.log("EEEEE   ",e.target.attributes.name);
-        const item = e.target.attributes.name
             setSortToggleById(!sortToggleById);
             if(sortToggleById){
+                // transformer en flechée =>
             cartes.sort( function compare(a, b){
                 if (parseInt(a.idbase,10) > parseInt(b.idbase,10))
                     return -1;
@@ -117,6 +121,11 @@ function Home() {
     return(
         <>
         <section className="cell-container">
+            <SearchBar 
+                setSearchAnnee={setSearchAnnee} 
+                setSearchLocalite={setSearchLocalite} 
+                setSearchRegion={setSearchRegion} 
+                setSearchPays={setSearchPays} />
             <section className="stamp-line">
                 <p className="cell-id" name="idBase" onClick={handleSortId}>id</p>
                 <p className="cell-info-carte" >Carte</p>
@@ -137,7 +146,10 @@ function Home() {
                 <p className="cell-info" onClick={handleSortRegion}>Pays</p>
             </section>
             <section className="cell-line-container" >
-                {cartes && cartes.map((el) =>{
+                {cartes && cartes
+                .filter((el) => !searchLocalite || (el.nomlocalite && el.nomlocalite.toLowerCase() === searchLocalite.toLowerCase()))
+                .filter((el) => !searchRegion || (el.nomregion && el.nomregion.toLowerCase() === searchRegion.toLowerCase()))
+                .map((el) =>{
                 return(
                     <section className="cell-line" key={el.idbase} onClick={() => handleClick(el.idbase)}>
                         <p className="cell-id" placeholder="?">{el.idbase}</p>
