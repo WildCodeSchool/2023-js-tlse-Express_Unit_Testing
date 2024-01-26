@@ -1,10 +1,14 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import SearchByAnnees from "../SearchByAnnees/SearchByAnnees";
 import "./searchbar.css";
 function SearchBar (props) {
-    const {setSearchAnnee, setSearchLocalite, setSearchRegion, setSearchPays} = props;
+    const {setSearchAnneeDebut, searchAnneeDebut, setSearchAnneeFin, searchAnneeFin, setSearchLocalite, setSearchRegion, setSearchPays} = props;
     const [ localite, setLocalite ] = useState("");
+    const [ anneeDebut, setAnneeDebut] = useState("");
+    const [ anneeFin, setAnneeFin ]= useState("");
+    const [ menuAnnees, setMenuAnnees ] = useState(false);
     const [ menuLocalite, setMenuLocalite ] = useState(false);
     const [ menuRegion, setMenuRegion ] = useState(false);
     const [ menuPays, setMenuPays ] = useState(false);
@@ -20,6 +24,15 @@ function SearchBar (props) {
     useEffect(() =>{
         getLocalite();
     },[]);
+    const handleSelectAnnee = () =>{
+        setMenuRegion(false);
+        setMenuPays(false);
+        setMenuLocalite(false);
+        setMenuAnnees(!menuAnnees);
+        setSearchAnneeDebut(anneeDebut);
+        setSearchAnneeFin(anneeFin);
+        console.log(searchAnneeDebut,"  ",searchAnneeFin);
+    }
     const handleSelectLocalite = () =>{
         setMenuRegion(false);
         setMenuPays(false);
@@ -51,6 +64,8 @@ function SearchBar (props) {
         setMenuPays(!menuPays);
     }
     const handleSelectAnnule = () =>{
+        setSearchAnneeDebut("");
+        setSearchAnneeFin("");
         setMenuLocalite(false);
         setMenuRegion(false);
         setMenuPays(false);
@@ -61,6 +76,8 @@ function SearchBar (props) {
     return (
         <section className="menuList-container">
             <p>Filtrer par :</p>
+            <button className="menu-button" type="button" onClick={handleSelectAnnee}>Année</button>
+            {menuAnnees && <SearchByAnnees setAnneeDebut={setAnneeDebut} setAnneeFin={setAnneeFin}/>}
             <button className="menu-button" type="button" onClick={handleSelectLocalite}>localite</button>
             <ul className="menu-list">
             {menuLocalite && localite.map((el) =>{

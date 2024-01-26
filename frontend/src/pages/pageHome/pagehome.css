@@ -4,16 +4,12 @@
   align-items: center;
   justify-content: space-between;
   padding: 0.2rem 1rem 0.2rem 0.1rem;
-  border: 1px dashed grey;
+  border: 1px dashed var(--grey-400);
 }
 .cell-container .cell-line .cell-id, .cell-container .stamp-line .cell-id {
   width: 4rem;
   border-radius: 4px;
   text-align: center;
-}
-.cell-container .cell-line .cell-id:hover, .cell-container .stamp-line .cell-id:hover {
-  color: var(--blue-200);
-  cursor: pointer;
 }
 .cell-container .cell-line .cell-info-carte, .cell-container .stamp-line .cell-info-carte {
   width: 8rem;
@@ -21,28 +17,19 @@
   text-align: center;
 }
 .cell-container .cell-line .cell-info-annee, .cell-container .stamp-line .cell-info-annee {
-  width: 4rem;
-  padding-left: 0.5rem;
+  width: 5rem;
   text-align: center;
-}
-.cell-container .cell-line .cell-info-annee:hover, .cell-container .stamp-line .cell-info-annee:hover {
-  color: var(--blue-200);
-  cursor: pointer;
 }
 .cell-container .cell-line .cell-info, .cell-container .stamp-line .cell-info {
   width: 8rem;
   padding-left: 0.5rem;
   text-align: left;
 }
-.cell-container .cell-line .cell-info:hover, .cell-container .stamp-line .cell-info:hover {
-  color: var(--blue-200);
-  cursor: pointer;
-}
 .cell-container .cell-line .cell-label-boolean, .cell-container .stamp-line .cell-label-boolean {
   width: 3rem;
   font-size: 0.8rem;
   text-align: center;
-  color: rgb(253, 253, 253);
+  color: var(--white);
 }
 .cell-container .cell-line .cell-boolean, .cell-container .stamp-line .cell-boolean {
   width: 3rem;
@@ -63,6 +50,15 @@
   margin: 0;
   padding-left: 0.5rem;
   text-align: left;
+}
+.cell-container .cell-line .stamp-arrows, .cell-container .stamp-line .stamp-arrows {
+  color: var(--blue-700);
+  padding-top: 0.5rem;
+  padding-left: 0.5rem;
+}
+.cell-container .cell-line .stamp-arrows:hover, .cell-container .stamp-line .stamp-arrows:hover {
+  color: var(--blue-400);
+  cursor: pointer;
 }
 
 :root {

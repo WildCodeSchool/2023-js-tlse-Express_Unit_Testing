@@ -32,10 +32,10 @@
         }
     }
     .admis{
-        color: green;
+        color: var(--green-900);
     }
     .noadmis{
-        color: red;
+        color: var(--red-900);
     }
 }
 %func_format-line{
@@ -44,45 +44,32 @@
     align-items: center;
     justify-content: space-between;
     padding: 0.2rem 1rem 0.2rem 0.1rem;
-    border: 1px dashed grey;
+    border: 1px dashed var(--grey-400);
     .cell-id{
         width: 4rem;
         border-radius: 4px;
         text-align: center;
-        &:hover{
-            color: var(--blue-200);
-            cursor: pointer;
-        }
     }
-
     .cell-info-carte{
         width: 8rem;
         padding-left: 0.5rem;
         text-align: center;
     }
     .cell-info-annee{
-        width: 4rem;
-        padding-left: 0.5rem;
+        width: 5rem;
+        // padding-left: 0.5rem;
         text-align: center;
-        &:hover{
-            color: var(--blue-200);
-            cursor: pointer;
-        }
     }
     .cell-info{
         width: 8rem;
         padding-left: 0.5rem;
         text-align: left;
-        &:hover{
-            color: var(--blue-200);
-            cursor: pointer;
-        }
     }
     .cell-label-boolean{
         width: 3rem;
         font-size: 0.8rem;
         text-align: center;
-        color: rgb(253, 253, 253);
+        color: var(--white);
     }
     .cell-boolean{
         width: 3rem;
@@ -104,7 +91,19 @@
         padding-left: 0.5rem;
         text-align: left;
     }
+    .stamp-arrows{
+        color: var(--blue-700);
+        padding-top: 0.5rem;
+        padding-left: 0.5rem;
+        &:hover{
+            color: var(--blue-400);
+            cursor: pointer;
+        }
+    }
 }
+
+
+// buttons
 %func_buttonDefault{
     width: 8rem;
     height: 2rem;
@@ -174,24 +173,24 @@
 }
 %func_buttonCharger{
     width: 6rem;
-        height: 1.5rem;
-        text-align: center;
-        padding-top: 0.3rem;
-        background-color: var(--blue-600);
-        border-radius: 0.4rem;
-        border: 2px solid var(--blue-700);
-        font-size: 0.7rem;
+    height: 1.5rem;
+    text-align: center;
+    padding-top: 0.3rem;
+    background-color: var(--blue-600);
+    border-radius: 0.4rem;
+    border: 2px solid var(--blue-700);
+    font-size: 0.7rem;
+    color: var(--amber-50);
+    &:hover{
+        background-color: var(--blue-400);
+        cursor: pointer;
+    }
+    input[type="file"]{
+        display: none;
+    }
+    span{
         color: var(--amber-50);
-        &:hover{
-            background-color: var(--blue-400);
-            cursor: pointer;
-        }
-        input[type="file"]{
-            display: none;
-        }
-        span{
-            color: var(--amber-50);
-        }
+    }
 }
 %func_vignette-container{
     background-color: var(--white);
@@ -215,5 +214,3 @@
         border-radius: 0.4rem;
     }
 }
-
-    
